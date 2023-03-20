@@ -24,6 +24,7 @@ public class HomeAdminPage extends javax.swing.JFrame {
         
         jLabel19.setText(Integer.toString(getStudentNum()));
         jLabel15.setText(Integer.toString(getBookNum()));
+        jLabel17.setText(Integer.toString(getIssuedBookNum()));
         
     }
 
@@ -41,7 +42,6 @@ public class HomeAdminPage extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -69,14 +69,17 @@ public class HomeAdminPage extends javax.swing.JFrame {
         jPanel19 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        rSTableMetro1 = new rojeru_san.complementos.RSTableMetro();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        rSTableMetro2 = new rojeru_san.complementos.RSTableMetro();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1920, 1080));
-        setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(102, 0, 204));
+        jPanel2.setBackground(new java.awt.Color(204, 51, 0));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagementsystem/icons/icons8_menu_48px_1.png"))); // NOI18N
         jLabel1.setPreferredSize(new java.awt.Dimension(48, 100));
@@ -104,15 +107,6 @@ public class HomeAdminPage extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagementsystem/icons/male_user_50px.png"))); // NOI18N
         jLabel4.setText("Admin");
 
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 31)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("X");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -126,9 +120,7 @@ public class HomeAdminPage extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1180, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addGap(114, 114, 114)
-                .addComponent(jLabel3)
-                .addGap(29, 29, 29))
+                .addGap(162, 162, 162))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,8 +131,7 @@ public class HomeAdminPage extends javax.swing.JFrame {
                         .addGap(9, 9, 9)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)))
+                            .addComponent(jLabel4)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -164,7 +155,7 @@ public class HomeAdminPage extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(0, 0, 0));
 
-        jPanel5.setBackground(new java.awt.Color(0, 0, 153));
+        jPanel5.setBackground(new java.awt.Color(102, 0, 0));
         jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel5MouseClicked(evt);
@@ -184,6 +175,11 @@ public class HomeAdminPage extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(0, 0, 0));
         jPanel6.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel6MouseClicked(evt);
+            }
+        });
         jPanel6.setLayout(new java.awt.CardLayout());
 
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -232,7 +228,7 @@ public class HomeAdminPage extends javax.swing.JFrame {
         jLabel10.setText("View Issued Books");
         jPanel10.add(jLabel10, "card2");
 
-        jPanel11.setBackground(new java.awt.Color(102, 0, 204));
+        jPanel11.setBackground(new java.awt.Color(102, 0, 0));
         jPanel11.setForeground(new java.awt.Color(255, 255, 255));
         jPanel11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -298,7 +294,7 @@ public class HomeAdminPage extends javax.swing.JFrame {
         jPanel12.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 30, -1, -1));
 
         jPanel14.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel14.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(0, 0, 204)));
+        jPanel14.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(102, 0, 0)));
         jPanel14.setLayout(new java.awt.CardLayout());
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -315,7 +311,7 @@ public class HomeAdminPage extends javax.swing.JFrame {
         jPanel12.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, -1, -1));
 
         jPanel17.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel17.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(0, 0, 204)));
+        jPanel17.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(102, 0, 0)));
         jPanel17.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel17MouseClicked(evt);
@@ -333,7 +329,7 @@ public class HomeAdminPage extends javax.swing.JFrame {
         jPanel12.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 70, 260, 140));
 
         jPanel19.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel19.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(0, 0, 204)));
+        jPanel19.setBorder(javax.swing.BorderFactory.createMatteBorder(15, 0, 0, 0, new java.awt.Color(102, 0, 0)));
         jPanel19.setLayout(new java.awt.CardLayout());
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -349,14 +345,44 @@ public class HomeAdminPage extends javax.swing.JFrame {
         jLabel18.setText("Number of Issued Books");
         jPanel12.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, -1, -1));
 
-        getContentPane().add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, 1560, 930));
+        rSTableMetro1.setBackground(new java.awt.Color(0, 0, 0));
+        rSTableMetro1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Student_id", "Name", "Course", "Mail"
+            }
+        ));
+        rSTableMetro1.setColorBackgoundHead(new java.awt.Color(102, 0, 0));
+        jScrollPane1.setViewportView(rSTableMetro1);
+
+        jPanel12.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 630, 820, 140));
+
+        rSTableMetro2.setBackground(new java.awt.Color(0, 0, 0));
+        rSTableMetro2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Book_id", "Name", "Category", "Publisher"
+            }
+        ));
+        rSTableMetro2.setColorBackgoundHead(new java.awt.Color(102, 0, 0));
+        jScrollPane2.setViewportView(rSTableMetro2);
+
+        jPanel12.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 320, 820, 140));
+
+        getContentPane().add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 1560, 930));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-System.exit(0);
-    }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseClicked
        System.out.println("Home");
@@ -372,8 +398,17 @@ System.exit(0);
     }//GEN-LAST:event_jPanel11MouseClicked
 
     private void jPanel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel17MouseClicked
-        
+         
     }//GEN-LAST:event_jPanel17MouseClicked
+
+    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
+        dispose();
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ManageStudents().setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_jPanel6MouseClicked
 
     /**
      * @param args the command line arguments
@@ -393,7 +428,6 @@ System.exit(0);
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -415,6 +449,10 @@ System.exit(0);
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private rojeru_san.complementos.RSTableMetro rSTableMetro1;
+    private rojeru_san.complementos.RSTableMetro rSTableMetro2;
     // End of variables declaration//GEN-END:variables
     private int getStudentNum(){
         int result = 0;
@@ -429,7 +467,7 @@ System.exit(0);
             while(rs.next()){
              result = rs.getInt("studentCount");
             }
-            ;
+            con.close();
             
             
             
@@ -451,7 +489,7 @@ System.exit(0);
             while(rs.next()){
              result = rs.getInt("bookCount");
             }
-            ;
+            con.close();
             
             
             
@@ -459,6 +497,32 @@ System.exit(0);
         catch(Exception e){
             System.out.println(e.getMessage());
         }
+    
     return result;}
-
+    private int getIssuedBookNum(){
+        int result = 0;
+    try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?zeroDateTimeBehavior=CONVERT_TO_NULL","root","Vusala7677");
+            
+            String query = "select count(*) as bookCount from issued;";
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            
+            while(rs.next()){
+             result = rs.getInt("bookCount");
+            }
+            con.close();
+            
+            
+            
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    
+    return result;}
+    
 }
+
+

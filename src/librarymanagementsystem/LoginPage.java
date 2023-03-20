@@ -150,6 +150,7 @@ public class LoginPage extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery(query);
             
             if(rs.next()){this.dispose();
+            
             java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new HomeAdminPage().setVisible(true);
@@ -159,7 +160,9 @@ public class LoginPage extends javax.swing.JFrame {
             
             }else{
             JOptionPane.showMessageDialog(this, "Username or Password is wrong");
+            
             }
+            con.close();
             
         }
         catch(Exception e){
