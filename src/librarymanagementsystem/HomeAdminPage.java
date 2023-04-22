@@ -9,23 +9,76 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author vugar
  */
 public class HomeAdminPage extends javax.swing.JFrame {
-
+DefaultTableModel mod;
     /**
      * Creates new form HomePage
      */
     public HomeAdminPage() {
         initComponents();
-        
+        setLocationRelativeTo(null);
         jLabel19.setText(Integer.toString(getStudentNum()));
         jLabel15.setText(Integer.toString(getBookNum()));
         jLabel17.setText(Integer.toString(getIssuedBookNum()));
+        setStudentTable();
+        setBooksTable();
         
+        
+        
+    }
+    public void  setStudentTable(){
+        try{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?zeroDateTimeBehavior=CONVERT_TO_NULL","root","Vusala7677");
+        Statement st = con.createStatement();
+        String query = "select * from students;";
+        ResultSet rs = st.executeQuery(query);
+        while(rs.next()){
+        String studentID = rs.getString("student_id");
+        String studentFirstName = rs.getString("first_name");
+        String studentLastName = rs.getString("last_name");
+        String department = rs.getString("department");
+        String email = rs.getString("email");
+        
+        Object[] obj = {studentID,studentFirstName,studentLastName,department,email};
+        mod = (DefaultTableModel) tableStudent.getModel();
+        mod.addRow(obj);
+        }
+        
+        }
+        catch(Exception e)
+        {System.out.println(e.getMessage());
+        }
+    }
+    public void setBooksTable(){
+    try{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?zeroDateTimeBehavior=CONVERT_TO_NULL","root","Vusala7677");
+        Statement st = con.createStatement();
+        String query = "select * from books;";
+        ResultSet rs = st.executeQuery(query);
+        while(rs.next()){
+        String bookID = rs.getString("book_id");
+        String bookName = rs.getString("book_name");
+        String author = rs.getString("author");
+        String quantity = rs.getString("quantity");
+        
+        
+        Object[] obj = {bookID,bookName,author,quantity};
+        mod = (DefaultTableModel) tableBooks.getModel();
+        mod.addRow(obj);
+        }
+        
+        }
+        catch(Exception e)
+        {System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -70,9 +123,9 @@ public class HomeAdminPage extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        rSTableMetro1 = new rojeru_san.complementos.RSTableMetro();
+        tableStudent = new rojeru_san.complementos.RSTableMetro();
         jScrollPane2 = new javax.swing.JScrollPane();
-        rSTableMetro2 = new rojeru_san.complementos.RSTableMetro();
+        tableBooks = new rojeru_san.complementos.RSTableMetro();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1920, 1080));
@@ -196,6 +249,11 @@ public class HomeAdminPage extends javax.swing.JFrame {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagementsystem/icons/icons8_Book_26px.png"))); // NOI18N
         jLabel9.setText("Manage Books");
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
         jPanel7.add(jLabel9, "card2");
 
         jPanel8.setBackground(new java.awt.Color(0, 0, 0));
@@ -206,6 +264,11 @@ public class HomeAdminPage extends javax.swing.JFrame {
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/librarymanagementsystem/icons/icons8_Sell_26px.png"))); // NOI18N
         jLabel11.setText("Issue Book");
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
         jPanel8.add(jLabel11, "card2");
 
         jPanel9.setBackground(new java.awt.Color(0, 0, 0));
@@ -345,37 +408,31 @@ public class HomeAdminPage extends javax.swing.JFrame {
         jLabel18.setText("Number of Issued Books");
         jPanel12.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 30, -1, -1));
 
-        rSTableMetro1.setBackground(new java.awt.Color(0, 0, 0));
-        rSTableMetro1.setModel(new javax.swing.table.DefaultTableModel(
+        tableStudent.setBackground(new java.awt.Color(0, 0, 0));
+        tableStudent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Student_id", "Name", "Course", "Mail"
+                "Student_id", "First Name", "Last Name", "Course", "Mail"
             }
         ));
-        rSTableMetro1.setColorBackgoundHead(new java.awt.Color(102, 0, 0));
-        jScrollPane1.setViewportView(rSTableMetro1);
+        tableStudent.setColorBackgoundHead(new java.awt.Color(102, 0, 0));
+        jScrollPane1.setViewportView(tableStudent);
 
         jPanel12.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 630, 820, 140));
 
-        rSTableMetro2.setBackground(new java.awt.Color(0, 0, 0));
-        rSTableMetro2.setModel(new javax.swing.table.DefaultTableModel(
+        tableBooks.setBackground(new java.awt.Color(0, 0, 0));
+        tableBooks.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Book_id", "Name", "Category", "Publisher"
+                "Book_id", "Name", "Author", "Quantity"
             }
         ));
-        rSTableMetro2.setColorBackgoundHead(new java.awt.Color(102, 0, 0));
-        jScrollPane2.setViewportView(rSTableMetro2);
+        tableBooks.setColorBackgoundHead(new java.awt.Color(102, 0, 0));
+        jScrollPane2.setViewportView(tableBooks);
 
         jPanel12.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 320, 820, 140));
 
@@ -409,6 +466,26 @@ public class HomeAdminPage extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_jPanel6MouseClicked
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+dispose();
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ManageBooks().setVisible(true);
+            }
+        });
+
+    }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        dispose();
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new IssueBook().setVisible(true);
+            }
+        });
+
+    }//GEN-LAST:event_jLabel11MouseClicked
 
     /**
      * @param args the command line arguments
@@ -451,8 +528,8 @@ public class HomeAdminPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private rojeru_san.complementos.RSTableMetro rSTableMetro1;
-    private rojeru_san.complementos.RSTableMetro rSTableMetro2;
+    private rojeru_san.complementos.RSTableMetro tableBooks;
+    private rojeru_san.complementos.RSTableMetro tableStudent;
     // End of variables declaration//GEN-END:variables
     private int getStudentNum(){
         int result = 0;
@@ -505,7 +582,7 @@ public class HomeAdminPage extends javax.swing.JFrame {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?zeroDateTimeBehavior=CONVERT_TO_NULL","root","Vusala7677");
             
-            String query = "select count(*) as bookCount from issued;";
+            String query = "select count(*) as bookCount from issue;";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(query);
             

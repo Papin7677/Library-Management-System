@@ -17,6 +17,7 @@ public class LoginPage extends javax.swing.JFrame {
      */
     public LoginPage() {
         initComponents();
+        setLocationRelativeTo(null);
         
     }
 
@@ -166,7 +167,7 @@ public class LoginPage extends javax.swing.JFrame {
             
         }
         catch(Exception e){
-            System.out.println(e.getMessage());
+           
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLoginActionPerformed

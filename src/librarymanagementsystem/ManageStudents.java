@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -16,12 +18,14 @@ import javax.swing.JOptionPane;
  * @author vugar
  */
 public class ManageStudents extends javax.swing.JFrame {
-
+DefaultTableModel mod;
     /**
      * Creates new form ManageStudents
      */
     public ManageStudents() {
         initComponents();
+        setLocationRelativeTo(null);
+        setTable();
     }
 
     /**
@@ -49,12 +53,16 @@ public class ManageStudents extends javax.swing.JFrame {
         btnAdd = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableStudent = new rojeru_san.complementos.RSTableMetro();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1920, 1080));
         setMinimumSize(new java.awt.Dimension(1920, 1080));
         setPreferredSize(new java.awt.Dimension(1920, 1080));
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(102, 0, 0));
 
@@ -110,9 +118,19 @@ public class ManageStudents extends javax.swing.JFrame {
 
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Delete");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("Update");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -206,18 +224,43 @@ public class ManageStudents extends javax.swing.JFrame {
                 .addGap(69, 69, 69))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1332, Short.MAX_VALUE))
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        tableStudent.setBackground(new java.awt.Color(0, 0, 0));
+        tableStudent.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Student_id", "First Name", "Last Name", "Department", "Mail"
+            }
+        ));
+        tableStudent.setColorBackgoundHead(new java.awt.Color(102, 0, 0));
+        tableStudent.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableStudentMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableStudent);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(255, 255, 255)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1015, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(301, 301, 301)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(639, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 1330, 1080));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -233,7 +276,8 @@ public class ManageStudents extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        try{int studentID = Integer.parseInt(tfStudentID.getText());
+        try{
+        int studentID = Integer.parseInt(tfStudentID.getText());
         String firstName = tfFirstName.getText();
         String lastName = tfLastName.getText();
         String department = (String) cbDepartment.getSelectedItem();
@@ -248,6 +292,17 @@ public class ManageStudents extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "The student has been added!");
             
             con.close();
+            tfStudentID.setText("");
+            tfFirstName.setText("");
+            tfLastName.setText("");
+            
+            tfEmail.setText("");
+            mod = (DefaultTableModel) tableStudent.getModel();
+            mod.setRowCount(0);
+            setTable();
+            
+            
+            
             
         }
         catch(Exception e){
@@ -255,39 +310,102 @@ public class ManageStudents extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
+            int studentID = Integer.parseInt(tfStudentID.getText());
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?zeroDateTimeBehavior=CONVERT_TO_NULL","root","Vusala7677");
+            String query = "delete from students where student_id ="+studentID+" ;";
+            Statement st = con.createStatement();
+            st.executeUpdate(query);
+            JOptionPane.showMessageDialog(this, "The student has been deleted!");
+            tfStudentID.setText("");
+            tfFirstName.setText("");
+            tfLastName.setText("");
+            tfEmail.setText("");
+            cbDepartment.setSelectedIndex(0);
+            mod.setRowCount(0);
+            setTable();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tableStudentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableStudentMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = tableStudent.getSelectedRow();
+        TableModel mod = tableStudent.getModel();
+        
+        tfStudentID.setText(mod.getValueAt(selectedRow, 0).toString());
+        tfFirstName.setText(mod.getValueAt(selectedRow, 1).toString());
+        tfLastName.setText(mod.getValueAt(selectedRow, 2).toString());
+        tfEmail.setText(mod.getValueAt(selectedRow, 4).toString());
+        cbDepartment.getModel().setSelectedItem(mod.getValueAt(selectedRow, 3).toString());
+    }//GEN-LAST:event_tableStudentMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try{
+        int studentID = Integer.parseInt(tfStudentID.getText());
+        String firstName = tfFirstName.getText();
+        String lastName = tfLastName.getText();
+        String department = (String) cbDepartment.getSelectedItem();
+        String email = tfEmail.getText();
+        
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?zeroDateTimeBehavior=CONVERT_TO_NULL","root","Vusala7677");
+            
+            String query = "update students set first_name = '"+firstName+"', last_name = '"+lastName+"', department = '"+department+"', email = '"+email+"' where student_id = '"+studentID+"';";
+            Statement st = con.createStatement();
+            st.executeUpdate(query);
+            JOptionPane.showMessageDialog(this, "The student has been updated!");
+            
+            con.close();
+            tfStudentID.setText("");
+            tfFirstName.setText("");
+            tfLastName.setText("");
+            
+            tfEmail.setText("");
+            mod = (DefaultTableModel) tableStudent.getModel();
+            mod.setRowCount(0);
+            setTable();
+            
+            
+            
+            
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(this,e.getMessage());
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManageStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManageStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManageStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManageStudents.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+   
+    public void  setTable(){
+        try{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/library?zeroDateTimeBehavior=CONVERT_TO_NULL","root","Vusala7677");
+        Statement st = con.createStatement();
+        String query = "select * from students;";
+        ResultSet rs = st.executeQuery(query);
+        while(rs.next()){
+        String studentID = rs.getString("student_id");
+        String studentFirstName = rs.getString("first_name");
+        String studentLastName = rs.getString("last_name");
+        String department = rs.getString("department");
+        String email = rs.getString("email");
+        
+        Object[] obj = {studentID,studentFirstName,studentLastName,department,email};
+        mod = (DefaultTableModel) tableStudent.getModel();
+        mod.addRow(obj);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ManageStudents().setVisible(true);
-            }
-        });
+        
+        }
+        catch(Exception e)
+        {System.out.println(e.getMessage());
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -298,11 +416,14 @@ public class ManageStudents extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbDepartment;
     private javax.swing.JLabel lbEmail;
     private javax.swing.JLabel lbFirstName;
     private javax.swing.JLabel lbLastName;
     private javax.swing.JLabel lbStudentID;
+    private rojeru_san.complementos.RSTableMetro tableStudent;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfFirstName;
     private javax.swing.JTextField tfLastName;
